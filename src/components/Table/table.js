@@ -43,12 +43,14 @@ const table = props => {
       <button
         onClick={() => props.getUrl(data.previous)}
         disabled={data.previous == null}
+        className={data.previous == null ? 'disabled' : 'hidden'}
       >
         Prev
       </button>
       <button
         onClick={() => props.getUrl(data.next)}
         disabled={data.next == null}
+        className={data.next == null ? 'disabled' : 'hidden'}
       >
         Next
       </button>
