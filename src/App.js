@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import Table from './components/Table/table';
+import Chart from './components/Chart/chart';
+import Loading from './components/Loading/loading';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [data, setdata] = useState({
+    data: [],
+    isLoading: true,
+    results: null
+  });
+  const [url, setUrl] = useState(`https://swapi.co/api/people/?page=1`);
+  const getUrl = newUrl => setUrl(newUrl);
+
+  useEffect(() => {
+    fetch(url)
+      .then(item => item.json())
+      .then(item =>
+        setTimeout(() => {
+          setdata({
+            data: item,
+            isLoading: false,
+            results: item.results
+          });
+        }, 1000)
+      );
+  }, [url]);
+
+  if (data.isLoading) {
+    return (
+      <div className="container">
+        <Loading />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <div className="container">
+          <Table data={data} getUrl={getUrl} />
+          <Chart data={data} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
