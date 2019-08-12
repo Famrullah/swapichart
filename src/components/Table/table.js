@@ -12,14 +12,16 @@ const table = props => {
 
   const renderList = () => {
     return data.results.map((item, index) => (
-      <tr key={index}>
-        <td>{index + 1}</td>
-        <td>{item.name}</td>
-        <td>{item.height}</td>
-        <td>{item.mass}</td>
-        <td>{item.hair_color}</td>
-        <td>{item.skin_color}</td>
-      </tr>
+      <tbody key={index}>
+        <tr>
+          <td>{index + 1}</td>
+          <td>{item.name}</td>
+          <td>{item.height}</td>
+          <td>{item.mass}</td>
+          <td>{item.hair_color}</td>
+          <td>{item.skin_color}</td>
+        </tr>
+      </tbody>
     ));
   };
 
@@ -36,10 +38,20 @@ const table = props => {
             <th>Skin Color</th>
           </tr>
         </thead>
-        <tbody>{renderList()}</tbody>
+        {renderList()}
       </table>
-      <button onClick={() => props.getUrl(data.previous)}>Prev</button>
-      <button onClick={() => props.getUrl(data.next)}>Next</button>
+      <button
+        onClick={() => props.getUrl(data.previous)}
+        disabled={data.previous == null}
+      >
+        Prev
+      </button>
+      <button
+        onClick={() => props.getUrl(data.next)}
+        disabled={data.next == null}
+      >
+        Next
+      </button>
     </div>
   );
 };

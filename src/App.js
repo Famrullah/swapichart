@@ -17,13 +17,11 @@ function App() {
     fetch(url)
       .then(item => item.json())
       .then(item =>
-        setTimeout(() => {
-          setdata({
-            data: item,
-            isLoading: false,
-            results: item.results
-          });
-        }, 1000)
+        setdata({
+          data: item,
+          isLoading: false,
+          results: item.results
+        })
       );
   }, [url]);
 
